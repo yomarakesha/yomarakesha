@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin · Yomarakesha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/static/css/admin.css" />
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen" hidden>
+  <form id="loginForm" class="login-card">
+    <h1>./admin --login</h1>
+    <p>Enter the admin password to manage portfolio content.</p>
+    <div class="field">
+      <label for="adminPwd">password</label>
+      <input id="adminPwd" type="password" autocomplete="current-password" required />
+    </div>
+    <button class="btn btn-primary" type="submit">Sign in</button>
+    <p id="loginError" style="margin-top:14px;color:#ff8888;font-family:var(--font-mono);font-size:12px;min-height:16px"></p>
+  </form>
+</div>
+
+<div id="dashboard" class="dashboard" hidden>
+  <aside class="sidebar">
+    <div class="brand">~/admin_</div>
+    <button data-section="site" class="active">// site settings</button>
+    <button data-section="stats">// stats</button>
+    <button data-section="contacts">// contacts</button>
+    <button data-section="skills">// skills</button>
+    <button data-section="projects">// projects</button>
+    <button data-section="experience">// experience</button>
+    <div class="spacer"></div>
+    <a class="btn btn-sm" href="/" target="_blank" style="text-align:center;text-decoration:none;margin:6px 8px">view site →</a>
+    <button id="logoutBtn" class="logout">// logout</button>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/static/js/admin.js"></script>
+</body>
+</html>

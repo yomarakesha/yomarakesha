@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pip install -r requirements.txt)",
+      "Bash(python seed.py)",
+      "Bash(python app.py)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:5000/)",
+      "Bash(curl -s http://127.0.0.1:5000/api/site)",
+      "Bash(curl -s http://127.0.0.1:5000/api/projects)",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/api/login -H \"Content-Type: application/json\" -d '{\"password\":\"letmein\"}')",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/api/projects -H \"Content-Type: application/json\" -d '{\"title\":\"x\"}' -w \"\\\\nHTTP:%{http_code}\\\\n\")",
+      "Bash(curl -s -X POST http://127.0.0.1:5000/api/projects/1/tags -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJyb2xlIjoiYWRtaW4ifQ.afmQxw.mjUyuW3I2-Gi0W2mWfazXTEzSVc' -d '{\"name\":\"verify-tag\",\"order\":99}')",
+      "Bash(python -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(data[0]['tags'][-1]\\)\")",
+      "Bash(curl -s -X DELETE http://127.0.0.1:5000/api/project-tags/21 -H 'Authorization: Bearer eyJyb2xlIjoiYWRtaW4ifQ.afmQxw.mjUyuW3I2-Gi0W2mWfazXTEzSVc')",
+      "Bash(curl -s http://127.0.0.1:5000/api/skill-clusters)",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(len\\(d\\), 'clusters,', sum\\(len\\(c['tags']\\) for c in d\\), 'tags total'\\)\")",
+      "Bash(curl -s -X PATCH http://127.0.0.1:5000/api/site -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJyb2xlIjoiYWRtaW4ifQ.afmQxw.mjUyuW3I2-Gi0W2mWfazXTEzSVc' -d '{\"hero_badge\":\"Available for select work · Ashgabat 🇹🇲\"}')",
+      "Bash(curl -s -o /dev/null -w \"/admin: %{http_code}\\\\n\" http://127.0.0.1:5000/admin)",
+      "Bash(curl -s -o /dev/null -w \"/static/js/admin.js: %{http_code}\\\\n\" http://127.0.0.1:5000/static/js/admin.js)",
+      "Bash(curl -s -o /dev/null -w \"/static/js/site.js: %{http_code}\\\\n\" http://127.0.0.1:5000/static/js/site.js)",
+      "Bash(curl -s -o /dev/null -w \"/static/css/admin.css: %{http_code}\\\\n\" http://127.0.0.1:5000/static/css/admin.css)",
+      "Bash(curl *)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"python app.py\")"
+    ]
+  }
+}
