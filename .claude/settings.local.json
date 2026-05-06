@@ -21,7 +21,13 @@
       "Bash(curl -s -o /dev/null -w \"/static/css/admin.css: %{http_code}\\\\n\" http://127.0.0.1:5000/static/css/admin.css)",
       "Bash(curl *)",
       "Bash(kill %1)",
-      "Bash(pkill -f \"python app.py\")"
+      "Bash(pkill -f \"python app.py\")",
+      "Bash(python migrate.py)",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import sys; data=sys.stdin.buffer.read\\(\\); print\\(data[:500]\\)\")",
+      "Read(//c/tmp/**)",
+      "Read(//c/Users/Windows 11 Pro/AppData/Local/Temp/**)",
+      "PowerShell(python seed.py)"
     ]
   }
 }

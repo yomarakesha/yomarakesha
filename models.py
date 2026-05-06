@@ -49,6 +49,7 @@ class SkillCluster(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kicker = db.Column(db.String(40), nullable=False)
     title = db.Column(db.String(120), nullable=False)
+    title_ru = db.Column(db.String(120), default="")
     icon = db.Column(db.String(40), default="code-2")
     accent = db.Column(db.String(20), default="")
     order = db.Column(db.Integer, default=0)
@@ -59,6 +60,7 @@ class SkillCluster(db.Model):
 
     def to_dict(self):
         return {"id": self.id, "kicker": self.kicker, "title": self.title,
+                "title_ru": self.title_ru or "",
                 "icon": self.icon, "accent": self.accent, "order": self.order,
                 "tags": [t.to_dict() for t in self.tags]}
 
@@ -82,7 +84,10 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     num = db.Column(db.String(10), default="")
     title = db.Column(db.String(120), nullable=False)
+    title_ru = db.Column(db.String(120), default="")
     description = db.Column(db.Text, default="")
+    description_ru = db.Column(db.Text, default="")
+    cover_image = db.Column(db.String(400), default="")
     code_url = db.Column(db.String(400), default="")
     live_url = db.Column(db.String(400), default="")
     order = db.Column(db.Integer, default=0)
@@ -93,8 +98,12 @@ class Project(db.Model):
 
     def to_dict(self):
         return {"id": self.id, "num": self.num, "title": self.title,
-                "description": self.description, "code_url": self.code_url,
-                "live_url": self.live_url, "order": self.order,
+                "title_ru": self.title_ru or "",
+                "description": self.description,
+                "description_ru": self.description_ru or "",
+                "cover_image": self.cover_image or "",
+                "code_url": self.code_url, "live_url": self.live_url,
+                "order": self.order,
                 "tags": [t.to_dict() for t in self.tags]}
 
 
@@ -117,8 +126,10 @@ class Experience(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     period = db.Column(db.String(60), nullable=False)
     role = db.Column(db.String(120), nullable=False)
+    role_ru = db.Column(db.String(120), default="")
     company = db.Column(db.String(120), nullable=False)
     company_meta = db.Column(db.String(200), default="")
+    company_meta_ru = db.Column(db.String(200), default="")
     order = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     bullets = db.relationship("ExperienceBullet", backref="experience",
@@ -127,7 +138,9 @@ class Experience(db.Model):
 
     def to_dict(self):
         return {"id": self.id, "period": self.period, "role": self.role,
+                "role_ru": self.role_ru or "",
                 "company": self.company, "company_meta": self.company_meta,
+                "company_meta_ru": self.company_meta_ru or "",
                 "order": self.order,
                 "bullets": [b.to_dict() for b in self.bullets]}
 
@@ -139,8 +152,52 @@ class ExperienceBullet(db.Model):
                               db.ForeignKey("experience.id", ondelete="CASCADE"),
                               nullable=False)
     text = db.Column(db.Text, nullable=False)
+    text_ru = db.Column(db.Text, default="")
     order = db.Column(db.Integer, default=0)
 
     def to_dict(self):
         return {"id": self.id, "experience_id": self.experience_id,
-                "text": self.text, "order": self.order}
+                "text": self.text, "text_ru": self.text_ru or "",
+                "order": self.order}
+
+
+class HeroRole(db.Model):
+    __tablename__ = "hero_role"
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(120), nullable=False)
+    text_ru = db.Column(db.String(120), default="")
+    order = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {"id": self.id, "text": self.text,
+                "text_ru": self.text_ru or "", "order": self.order}
+
+
+class ContactSubmission(db.Model):
+    __tablename__ = "contact_submission"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    ip = db.Column(db.String(64), default="")
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    read = db.Column(db.Boolean, default=False)
+
+    def to_dict(self):
+        return {"id": self.id, "name": self.name, "email": self.email,
+                "message": self.message, "ip": self.ip,
+                "read": self.read,
+                "created_at": self.created_at.isoformat() if self.created_at else None}
+
+
+class PageView(db.Model):
+    __tablename__ = "page_view"
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String(200), nullable=False)
+    day = db.Column(db.String(10), nullable=False)  # YYYY-MM-DD
+    count = db.Column(db.Integer, default=0)
+    __table_args__ = (db.UniqueConstraint("path", "day", name="uq_pageview_path_day"),)
+
+    def to_dict(self):
+        return {"path": self.path, "day": self.day, "count": self.count}

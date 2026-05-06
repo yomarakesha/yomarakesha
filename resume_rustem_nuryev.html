@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rustem Nuryev — Backend / Network / DevOps / Security · Resume</title>
+<meta name="description" content="Rustem Nuryev (Yomarakesha) — Backend Developer, Network Engineer, DevOps and Cybersecurity Specialist. 4+ years building production systems and breaking insecure ones." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0: #050510; --bg-1: #0a0a14; --bg-2: #0f0f1c;
+    --line: rgba(0,240,255,0.12); --line-strong: rgba(0,240,255,0.3);
+    --fg: #e6f1ff; --fg-dim: #8a93b0; --fg-mute: #565d78;
+    --cyan: #00f0ff; --lime: #39ff14; --purple: #bd00ff;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-sans: 'Space Grotesk', system-ui, -apple-system, Segoe UI, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; padding: 0;
+    font-family: var(--font-sans); color: var(--fg);
+    background: var(--bg-0); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(900px 600px at 10% -10%, rgba(0,240,255,0.07), transparent 60%),
+      radial-gradient(700px 500px at 100% 10%, rgba(189,0,255,0.07), transparent 60%),
+      linear-gradient(transparent 31px, rgba(0,240,255,0.04) 32px),
+      linear-gradient(90deg, transparent 31px, rgba(0,240,255,0.04) 32px);
+    background-size: auto, auto, 32px 32px, 32px 32px;
+    mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 80%);
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 28px; position: relative; z-index: 1; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-shadow: 0 0 8px rgba(0,240,255,0.5); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 36px; align-items: center; margin-bottom: 48px; }
+  @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 12px; color: var(--fg-dim);
+    border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px;
+    background: rgba(10,10,20,0.5); margin-bottom: 14px;
+  }
+  .badge .dot {
+    width: 6px; height: 6px; background: var(--lime); border-radius: 999px;
+    box-shadow: 0 0 12px rgba(57,255,20,0.7);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.5; transform: scale(0.8); } }
+
+  h1 {
+    font-size: clamp(36px, 5.5vw, 60px);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.02em; margin: 0 0 8px;
+  }
+  h1 .name {
+    background: linear-gradient(90deg, var(--cyan), #fff 50%, var(--purple));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .roles {
+    font-family: var(--font-mono); color: var(--fg-dim);
+    font-size: clamp(14px, 1.6vw, 17px); margin: 0 0 14px;
+  }
+  .roles .accent { color: var(--lime); text-shadow: 0 0 10px rgba(57,255,20,0.4); }
+  .lead { color: var(--fg-dim); margin: 0 0 20px; max-width: 540px; font-size: 16px; }
+
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 12.5px; color: var(--fg-mute); }
+  .meta span { display: inline-flex; align-items: center; gap: 5px; }
+  .meta .k { color: var(--fg-dim); }
+  .meta .v { color: var(--fg); }
+
+  /* terminal card */
+  .term {
+    background: linear-gradient(180deg, rgba(15,15,28,0.95), rgba(10,10,20,0.95));
+    border: 1px solid var(--line-strong); border-radius: 10px;
+    overflow: hidden; font-family: var(--font-mono); font-size: 12.5px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 0 60px -10px rgba(0,240,255,0.2);
+  }
+  .term .bar { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .term .bar i { width: 9px; height: 9px; border-radius: 999px; background: #ff5f56; opacity: 0.7; display: inline-block; }
+  .term .bar i:nth-child(2) { background: #ffbd2e; }
+  .term .bar i:nth-child(3) { background: var(--lime); box-shadow: 0 0 6px rgba(57,255,20,0.5); }
+  .term .bar span { margin-left: 4px; color: var(--fg-mute); font-size: 11.5px; }
+  .term .body { padding: 14px 16px; line-height: 1.7; }
+  .term .body .l { display: block; }
+  .term .body .p { color: var(--cyan); }
+  .term .body .y { color: var(--lime); }
+  .term .body .k { color: var(--purple); }
+  .term .body .d { color: var(--fg-mute); }
+
+  /* sections */
+  section { margin-bottom: 56px; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--cyan);
+    letter-spacing: 0.04em; margin-bottom: 8px; display: inline-block;
+  }
+  .eyebrow::before { content: ">_ "; opacity: 0.7; }
+  h2.title { font-size: clamp(24px, 3vw, 32px); margin: 0 0 8px; font-weight: 700; letter-spacing: -0.01em; }
+  .sub { color: var(--fg-dim); margin: 0 0 28px; max-width: 640px; }
+  .neon { height: 1px; border: 0; background: linear-gradient(90deg, transparent, var(--line-strong), transparent); margin: 0 0 36px; }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .skill {
+    border: 1px solid var(--line); border-radius: 10px; padding: 18px;
+    background: linear-gradient(180deg, rgba(15,15,28,0.7), rgba(10,10,20,0.4));
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .skill:hover { border-color: var(--cyan); transform: translateY(-2px); box-shadow: 0 12px 32px -16px rgba(0,240,255,0.4); }
+  .skill h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+  .skill .kicker { font-family: var(--font-mono); font-size: 10.5px; color: var(--fg-mute); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-family: var(--font-mono); font-size: 11px;
+    padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line);
+    color: var(--fg-dim); background: rgba(255,255,255,0.02);
+  }
+
+  /* projects */
+  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+  .pj {
+    border: 1px solid var(--line); border-radius: 10px; padding: 20px;
+    background: linear-gradient(180deg, rgba(15,15,28,0.7), rgba(10,10,20,0.4));
+    display: flex; flex-direction: column; gap: 10px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .pj:hover { border-color: var(--cyan); transform: translateY(-2px); box-shadow: 0 14px 36px -16px rgba(0,240,255,0.4); }
+  .pj .head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .pj .num { font-family: var(--font-mono); font-size: 10.5px; color: var(--fg-mute); letter-spacing: 0.08em; }
+  .pj h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.005em; }
+  .pj .role { font-family: var(--font-mono); font-size: 11px; color: var(--lime); margin-top: 2px; }
+  .pj p { margin: 0; color: var(--fg-dim); font-size: 13.5px; }
+  .pj .stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; }
+
+  /* timeline */
+  .tl { position: relative; padding-left: 30px; }
+  .tl::before {
+    content: ""; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px;
+    background: linear-gradient(180deg, var(--cyan), var(--purple));
+    box-shadow: 0 0 10px rgba(0,240,255,0.4);
+  }
+  .tl-item { position: relative; padding: 0 0 28px 6px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -30px; top: 4px;
+    width: 18px; height: 18px; border-radius: 999px;
+    background: var(--bg-0); border: 2px solid var(--cyan);
+    box-shadow: 0 0 12px rgba(0,240,255,0.5);
+  }
+  .tl .period { font-family: var(--font-mono); font-size: 11.5px; color: var(--cyan); letter-spacing: 0.04em; }
+  .tl h3 { margin: 4px 0 4px; font-size: 16px; font-weight: 600; }
+  .tl .org { color: var(--fg-dim); font-family: var(--font-mono); font-size: 12px; margin-bottom: 8px; }
+  .tl ul { margin: 0; padding-left: 18px; color: var(--fg-dim); font-size: 13.5px; }
+  .tl li { margin-bottom: 3px; }
+  .tl li::marker { color: var(--cyan); }
+
+  /* contact */
+  .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .ct {
+    display: flex; gap: 12px; align-items: center;
+    padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px;
+    background: linear-gradient(180deg, rgba(15,15,28,0.6), rgba(10,10,20,0.3));
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .ct:hover { border-color: var(--cyan); transform: translateY(-1px); }
+  .ct .ic {
+    width: 32px; height: 32px; border-radius: 6px;
+    border: 1px solid var(--line-strong); background: rgba(0,240,255,0.06);
+    color: var(--cyan); font-family: var(--font-mono); font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: 13px;
+  }
+  .ct .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--fg-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+  .ct .val { font-family: var(--font-mono); font-size: 13px; color: var(--fg); }
+  .ct:hover .val { color: var(--cyan); }
+
+  /* footer */
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+           color: var(--fg-mute); font-family: var(--font-mono); font-size: 12px;
+           display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  /* print */
+  @media print {
+    body::before { display: none; }
+    body { background: #fff; color: #111; }
+    .wrap { padding: 20px; max-width: 100%; }
+    h1 .name { color: #000; -webkit-text-fill-color: #000; background: none; }
+    .roles, .lead, .sub, .meta, .pj p, .skill .kicker, .tl .org, .tl ul, .ct .lbl, .tag, footer, .term .body .d { color: #444; }
+    .skill, .pj, .ct, .term, .tl-item::before, .tl::before { background: #fff !important; }
+    .skill, .pj, .ct, .term { border-color: #bbb !important; box-shadow: none !important; }
+    .term .body .p { color: #006080; }
+    .term .body .y { color: #2a8c2a; }
+    .term .body .k { color: #7e2db5; }
+    .eyebrow, .roles .accent, .ct:hover .val, .pj .role { color: #006080 !important; }
+    .neon { background: #ddd; }
+    .badge .dot { box-shadow: none; }
+    section { page-break-inside: avoid; margin-bottom: 28px; }
+    h2.title, .pj h3, .skill h3, .tl h3 { page-break-after: avoid; }
+    a { color: #06c; text-shadow: none; }
+  }
+
+  .printbtn {
+    position: fixed; right: 18px; top: 18px; z-index: 10;
+    font-family: var(--font-mono); font-size: 12px;
+    background: var(--cyan); color: #001014; border: 0;
+    padding: 10px 16px; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 24px rgba(0,240,255,0.5);
+  }
+  .printbtn:hover { box-shadow: 0 0 32px rgba(0,240,255,0.8); }
+  @media print { .printbtn { display: none; } }
+</style>
+</head>
+<body>
+
+<button class="printbtn" onclick="window.print()">⤓ Save as PDF</button>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="badge"><span class="dot"></span> Open to work · Ashgabat 🇹🇲 · Remote OK</div>
+      <h1>Hi, I'm <span class="name">Rustem Nuryev</span></h1>
+      <p class="roles">&gt; Backend Developer · Network Engineer · DevOps · <span class="accent">Cybersecurity</span></p>
+      <p class="lead">
+        4+ years shipping reliable backends and breaking insecure ones. I build full-stack
+        systems on FastAPI / Flask / Node, run them on Linux infra I maintain myself, and audit
+        them with the same toolkit I use to break into other targets.
+      </p>
+      <div class="meta">
+        <span><span class="k">location</span> <span class="v">Ashgabat, TM</span></span>
+        <span><span class="k">exp</span> <span class="v">4+ yrs</span></span>
+        <span><span class="k">stack</span> <span class="v">Python · Node · Linux</span></span>
+        <span><span class="k">status</span> <span class="v" style="color:var(--lime)">online</span></span>
+      </div>
+    </div>
+
+    <div class="term">
+      <div class="bar"><i></i><i></i><i></i><span>~/whoami — zsh</span></div>
+      <div class="body">
+        <span class="l"><span class="p">rustem@home</span><span class="d">:</span><span class="k">~</span><span class="d">$</span> <span class="y">whoami</span></span>
+        <span class="l">rustem_nuryev</span>
+        <span class="l"><span class="p">rustem@home</span><span class="d">:</span><span class="k">~</span><span class="d">$</span> <span class="y">cat profile.json</span></span>
+        <span class="l">{</span>
+        <span class="l">  <span class="k">"alias"</span>: <span class="y">"yomarakesha"</span>,</span>
+        <span class="l">  <span class="k">"role"</span>: [<span class="y">"backend"</span>, <span class="y">"netops"</span>, <span class="y">"sec"</span>],</span>
+        <span class="l">  <span class="k">"stack"</span>: [<span class="y">"python"</span>, <span class="y">"node"</span>, <span class="y">"docker"</span>],</span>
+        <span class="l">  <span class="k">"motto"</span>: <span class="y">"build secure, break insecure"</span></span>
+        <span class="l">}</span>
+        <span class="l"><span class="p">rustem@home</span><span class="d">:</span><span class="k">~</span><span class="d">$</span> <span class="y">./status</span></span>
+        <span class="l"><span style="color:var(--lime)">[ok]</span> <span class="d">backend services</span> .... up</span>
+        <span class="l"><span style="color:var(--lime)">[ok]</span> <span class="d">network</span> ............. 99.9%</span>
+        <span class="l"><span style="color:var(--lime)">[ok]</span> <span class="d">coffee</span> .............. brewing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <section>
+    <div class="eyebrow">summary.md</div>
+    <h2 class="title">What I bring</h2>
+    <hr class="neon" />
+    <p style="color:var(--fg-dim); margin: 0; max-width: 760px;">
+      I work end-to-end: design the data model, write the API, wire the deploy, harden the
+      box, and stay around when something breaks at 3 AM. I've shipped <strong style="color:var(--fg)">25+ projects</strong>
+      — from courier-delivery platforms with QR/SMS workflows to OSINT investigation tools
+      with LLM agents and graph UIs, plus a personally-maintained fork of a popular pentesting
+      toolkit (185+ tools, 20 categories). I'm fluent across the stack — Python (FastAPI,
+      Flask, SQLAlchemy, Celery), Node (Nest, Express), front-end (React, Three.js), data
+      (PostgreSQL, MongoDB, Redis, SQLite), and ops (Docker, Linux, MikroTik/Cisco, BGP/OSPF,
+      ELK/Wazuh, Burp Suite).
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <div class="eyebrow">skills.yaml</div>
+    <h2 class="title">Tech stack</h2>
+    <hr class="neon" />
+    <div class="skills">
+      <div class="skill">
+        <p class="kicker">// 01 · backend</p>
+        <h3>Languages & Frameworks</h3>
+        <div class="tags">
+          <span class="tag">Python 3</span><span class="tag">FastAPI</span><span class="tag">Flask</span>
+          <span class="tag">SQLAlchemy</span><span class="tag">Celery</span><span class="tag">Pydantic</span>
+          <span class="tag">Node.js</span><span class="tag">NestJS</span><span class="tag">Express</span>
+          <span class="tag">Bash</span><span class="tag">PowerShell</span>
+        </div>
+      </div>
+      <div class="skill">
+        <p class="kicker">// 02 · frontend</p>
+        <h3>Web & Mobile UI</h3>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Three.js</span>
+          <span class="tag">Cytoscape.js</span><span class="tag">Tailwind</span>
+          <span class="tag">Vanilla JS</span><span class="tag">HTML/CSS</span>
+          <span class="tag">React Native</span>
+        </div>
+      </div>
+      <div class="skill">
+        <p class="kicker">// 03 · data</p>
+        <h3>Storage & Pipelines</h3>
+        <div class="tags">
+          <span class="tag">PostgreSQL</span><span class="tag">SQLite</span><span class="tag">MongoDB</span>
+          <span class="tag">Redis</span><span class="tag">MySQL</span>
+          <span class="tag">Alembic</span><span class="tag">REST</span><span class="tag">WebSockets</span>
+          <span class="tag">SSE</span>
+        </div>
+      </div>
+      <div class="skill">
+        <p class="kicker">// 04 · devops</p>
+        <h3>Infra & Deployment</h3>
+        <div class="tags">
+          <span class="tag">Docker</span><span class="tag">docker-compose</span>
+          <span class="tag">Linux</span><span class="tag">Ubuntu/Debian</span><span class="tag">Arch</span>
+          <span class="tag">Nginx</span><span class="tag">Gitea</span><span class="tag">Railway</span>
+          <span class="tag">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="skill">
+        <p class="kicker">// 05 · network</p>
+        <h3>Networking</h3>
+        <div class="tags">
+          <span class="tag">TCP/IP</span><span class="tag">BGP</span><span class="tag">OSPF</span>
+          <span class="tag">VLAN</span><span class="tag">VPN</span>
+          <span class="tag">MikroTik</span><span class="tag">Cisco</span>
+          <span class="tag">DNS</span><span class="tag">Firewalls</span>
+          <span class="tag">WebRTC</span><span class="tag">MediaMTX</span>
+        </div>
+      </div>
+      <div class="skill">
+        <p class="kicker">// 06 · security</p>
+        <h3>Pentest & DevSecOps</h3>
+        <div class="tags">
+          <span class="tag">Burp Suite</span><span class="tag">Metasploit</span><span class="tag">Nmap</span>
+          <span class="tag">OSINT</span><span class="tag">Telethon (MTProto)</span>
+          <span class="tag">Wazuh</span><span class="tag">ELK</span>
+          <span class="tag">Code Audit</span><span class="tag">Threat Intel</span>
+        </div>
+      </div>
+      <div class="skill">
+        <p class="kicker">// 07 · ai</p>
+        <h3>AI integration</h3>
+        <div class="tags">
+          <span class="tag">Claude API</span><span class="tag">OpenAI / GPT</span>
+          <span class="tag">MediaPipe</span><span class="tag">SSE streaming</span>
+          <span class="tag">Tool-use agents</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <div class="eyebrow">projects/</div>
+    <h2 class="title">Selected work</h2>
+    <p class="sub">Real systems I've designed, built and maintained — production and prototypes.</p>
+    <hr class="neon" />
+    <div class="projects">
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 01</div>
+            <h3>Chapar Express</h3>
+            <div class="role">FastAPI · PostgreSQL · React Native · Production</div>
+          </div>
+        </div>
+        <p>Automated inter-city courier delivery platform for Turkmenistan with a two-courier
+          air-freight workflow. OTP/JWT auth, FCM push, 17-status order lifecycle with QR
+          tracking, courier balance & payouts, GünDelik flight integration via webhook, admin
+          panel + courier mobile app.</p>
+        <div class="stack">
+          <span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
+          <span class="tag">PostgreSQL</span><span class="tag">JWT/OTP</span>
+          <span class="tag">FCM</span><span class="tag">React Native</span>
+          <span class="tag">Docker</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 02</div>
+            <h3>OSINT Investigation Platform</h3>
+            <div class="role">FastAPI · Claude AI · Cytoscape · Telegram MTProto</div>
+          </div>
+        </div>
+        <p>Local OSINT platform for phone/email/nickname/domain/IP investigations. Single
+          FastAPI process + SQLite, Cytoscape.js graph of entities & edges, parallel module
+          execution via asyncio semaphores, custom binary leak-DB importer with hex viewer
+          and entropy/magic detection, AI agent on Claude with SSE streaming.</p>
+        <div class="stack">
+          <span class="tag">FastAPI</span><span class="tag">Telethon</span>
+          <span class="tag">Claude API</span><span class="tag">Cytoscape.js</span>
+          <span class="tag">SQLite</span><span class="tag">SSE</span>
+          <span class="tag">asyncio</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 03</div>
+            <h3>HackingTool v2.0 (fork)</h3>
+            <div class="role">Python 3.10+ · 185+ tools · 20 categories · CLI</div>
+          </div>
+        </div>
+        <p>Modernised fork of an all-in-one pentesting toolkit. Migrated from Python 2 to 3.10+,
+          added OS-aware menus, search/tag filtering across 19 tags, install-status detection,
+          batch install, smart updater (auto-detects git pull / pip / go install), Docker
+          builds, one-liner installer, three new categories: AD, cloud and mobile security.</p>
+        <div class="stack">
+          <span class="tag">Python 3.10+</span><span class="tag">Bash</span>
+          <span class="tag">Docker</span><span class="tag">Pentesting</span>
+          <span class="tag">Linux/macOS</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 04</div>
+            <h3>DSS — Dahua Surveillance Dashboard</h3>
+            <div class="role">Python · WebRTC · MediaMTX · NVR integration</div>
+          </div>
+        </div>
+        <p>Web dashboard for Dahua NVR camera feeds via low-latency WebRTC. Configurable grids
+          (2×2 to 64×64), patrol mode that auto-cycles pages, custom groups and saved layouts,
+          fullscreen with snapshot capture, full keyboard-driven UX. Stdlib-only Python — no
+          pip dependencies, just MediaMTX bundled.</p>
+        <div class="stack">
+          <span class="tag">Python (stdlib)</span><span class="tag">WebRTC</span>
+          <span class="tag">MediaMTX</span><span class="tag">RTSP</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 05</div>
+            <h3>Yomarakesha Portfolio CMS</h3>
+            <div class="role">Flask · SQLAlchemy · Vanilla JS · Telegram</div>
+          </div>
+        </div>
+        <p>Self-built portfolio with a full admin CMS. Flask + SQLAlchemy backend, JSON API,
+          drag-and-drop reordering, image uploads, EN/RU localisation, contact form with
+          Telegram bot notifications, page-view analytics, sitemap/robots, printable CV
+          route. Auth via password + signed JWT-ish token (itsdangerous).</p>
+        <div class="stack">
+          <span class="tag">Flask</span><span class="tag">SQLAlchemy</span>
+          <span class="tag">SQLite</span><span class="tag">Vanilla JS</span>
+          <span class="tag">Telegram Bot</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 06</div>
+            <h3>OSINT Analyser (LLM pipeline)</h3>
+            <div class="role">Docker · OpenAI · MySQL · Telegram</div>
+          </div>
+        </div>
+        <p>Dockerised collection-and-analysis pipeline for open-source intelligence. Pulls from
+          Telegram channels, translates non-English content, then routes per-source analysis
+          requirements (stored in MySQL) into GPT for tailored summaries — different prompts
+          for e.g. Russia/Ukraine vs Israel/Gaza coverage.</p>
+        <div class="stack">
+          <span class="tag">Python</span><span class="tag">Docker</span>
+          <span class="tag">OpenAI API</span><span class="tag">MySQL</span>
+          <span class="tag">Telegram</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 07</div>
+            <h3>Life Tracker (TUI)</h3>
+            <div class="role">Python · Terminal-only · Keyboard-driven</div>
+          </div>
+        </div>
+        <p>Productivity TUI app inspired by vim/htop. Four modules: TODO with priorities &amp;
+          deadlines, GYM with weight sparklines and muscle-group stats, HABITS with weekly
+          streak grid, POMODORO with auto-cycling break timers. Alternate-screen buffer,
+          mouse-free, single Python file.</p>
+        <div class="stack">
+          <span class="tag">Python</span><span class="tag">curses</span>
+          <span class="tag">SQLite</span><span class="tag">TUI</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 08</div>
+            <h3>3D Particle System (gesture-controlled)</h3>
+            <div class="role">React · Three.js · MediaPipe · WebRTC camera</div>
+          </div>
+        </div>
+        <p>Real-time visualiser controlled by hand gestures via webcam. MediaPipe recognises
+          open palm / fist / motion, particles morph between Sphere / Cube / Galaxy / DNA-twist
+          patterns. Live colour palette, fullscreen, post-processing bloom — pure web,
+          no plugins.</p>
+        <div class="stack">
+          <span class="tag">React</span><span class="tag">Vite</span>
+          <span class="tag">@react-three/fiber</span><span class="tag">MediaPipe</span>
+          <span class="tag">Three.js</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 09</div>
+            <h3>QR vCard Admin</h3>
+            <div class="role">Flask · SQLite · QR generation · REST</div>
+          </div>
+        </div>
+        <p>vCard contact manager with on-demand QR generation. Full REST API (CRUD, vCard text,
+          PNG QR with size/ECL options, preview without saving), Flask + SQLite, deployable
+          to Railway with one click. Used as a digital business-card backend.</p>
+        <div class="stack">
+          <span class="tag">Flask</span><span class="tag">SQLite</span>
+          <span class="tag">qrcode</span><span class="tag">REST API</span>
+          <span class="tag">Railway</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 10</div>
+            <h3>Self-hosted Gitea + tooling</h3>
+            <div class="role">Linux · Gitea · Backup scripts · CI</div>
+          </div>
+        </div>
+        <p>Personal Git infrastructure on Linux: Gitea binary, custom config, log rotation,
+          backup scripts, hook-based CI. Used to host all the projects on this page.</p>
+        <div class="stack">
+          <span class="tag">Gitea</span><span class="tag">Linux</span>
+          <span class="tag">Bash</span><span class="tag">systemd</span>
+        </div>
+      </article>
+
+      <article class="pj">
+        <div class="head">
+          <div>
+            <div class="num">// 11</div>
+            <h3>SSL · Tagma — utility services</h3>
+            <div class="role">Flask · audit/cert dashboards · file uploads</div>
+          </div>
+        </div>
+        <p>A cluster of small Flask services: SSL/credential vault with Fernet-encrypted
+          storage; certificate audit dashboard with auto-rendered certificate / dashboard
+          pages; multi-language API with file uploads and i18n via Babel.</p>
+        <div class="stack">
+          <span class="tag">Flask</span><span class="tag">Fernet</span>
+          <span class="tag">Babel i18n</span><span class="tag">Docker</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <div class="eyebrow">experience.log</div>
+    <h2 class="title">Experience</h2>
+    <hr class="neon" />
+    <div class="tl">
+      <div class="tl-item">
+        <span class="period">2024 — Present</span>
+        <h3>Backend / DevOps Engineer · Freelance & contract</h3>
+        <div class="org">Ashgabat · remote-friendly</div>
+        <ul>
+          <li>Designed and shipped FastAPI backends (couriers, OSINT, OSS tooling) with
+              SQLAlchemy/Postgres, Alembic migrations, Celery workers and SSE streaming.</li>
+          <li>Built and maintained Linux infrastructure: self-hosted Gitea, Docker-compose
+              deployments, MediaMTX-based WebRTC streaming for surveillance.</li>
+          <li>Integrated Claude and OpenAI as production AI agents with tool-use, streaming
+              responses, and per-source prompt routing.</li>
+          <li>Maintained a popular open-source pentesting toolkit (185+ tools, 20 categories)
+              — Python 3 migration, search/tag filter, install-status detection, Docker.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <span class="period">2022 — 2024</span>
+        <h3>Network &amp; Backend Engineer</h3>
+        <div class="org">Ashgabat · full-time / contract</div>
+        <ul>
+          <li>Built and operated network infrastructure across multiple sites: BGP/OSPF
+              peering, VLAN segmentation, site-to-site VPN, MikroTik &amp; Cisco config.</li>
+          <li>Automated provisioning with Bash and Ansible-style scripts; reduced rollout
+              time by ~35%.</li>
+          <li>Hardened firewalls and DNS, introduced centralized logging in ELK and host
+              monitoring with Wazuh.</li>
+          <li>Wrote backend APIs and admin panels for internal business apps (e-commerce,
+              IT-incident reporting, courier ops).</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <span class="period">2021 — 2022</span>
+        <h3>Junior Developer / Sysadmin</h3>
+        <div class="org">Ashgabat · part-time / freelance</div>
+        <ul>
+          <li>Wrote Flask + SQLite admin panels and REST APIs for small business clients.</li>
+          <li>Linux server administration: deploys, backups, basic security hardening,
+              certificate management.</li>
+          <li>First exposure to pentest tooling — Nmap, Burp Suite, Metasploit, OSINT
+              workflows.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section>
+    <div class="eyebrow">highlights.txt</div>
+    <h2 class="title">Highlights</h2>
+    <hr class="neon" />
+    <div class="skills">
+      <div class="skill"><h3 style="color:var(--cyan)">25+</h3><p class="kicker">projects shipped</p><p style="color:var(--fg-dim);font-size:13px;margin:0">Backend, full-stack, OSINT, security tooling, infra.</p></div>
+      <div class="skill"><h3 style="color:var(--lime)">185+</h3><p class="kicker">pentest tools maintained</p><p style="color:var(--fg-dim);font-size:13px;margin:0">In a single fork I rebuilt to run on Python 3.10+ with modern tooling and Docker.</p></div>
+      <div class="skill"><h3 style="color:var(--purple)">20+</h3><p class="kicker">technologies in active use</p><p style="color:var(--fg-dim);font-size:13px;margin:0">Across backend, frontend, infra and security.</p></div>
+      <div class="skill"><h3 style="color:var(--cyan)">4+ yrs</h3><p class="kicker">in production</p><p style="color:var(--fg-dim);font-size:13px;margin:0">Across Backend, NetOps, DevOps and Security roles.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section>
+    <div class="eyebrow">./contact.sh</div>
+    <h2 class="title">Get in touch</h2>
+    <hr class="neon" />
+    <div class="contacts">
+      <a class="ct" href="mailto:yomarakesha@gmail.com">
+        <span class="ic">@</span>
+        <div><div class="lbl">email</div><div class="val">yomarakesha@gmail.com</div></div>
+      </a>
+      <a class="ct" href="https://github.com/yomarakesha" target="_blank" rel="noopener">
+        <span class="ic">GH</span>
+        <div><div class="lbl">github</div><div class="val">github.com/yomarakesha</div></div>
+      </a>
+      <a class="ct" href="https://t.me/yomarakesha" target="_blank" rel="noopener">
+        <span class="ic">TG</span>
+        <div><div class="lbl">telegram</div><div class="val">@yomarakesha</div></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Rustem Nuryev · Yomarakesha</span>
+    <span>Single-file résumé · Press Ctrl+P to save as PDF</span>
+  </footer>
+</div>
+
+</body>
+</html>

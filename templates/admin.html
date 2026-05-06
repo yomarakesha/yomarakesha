@@ -28,16 +28,28 @@
   <aside class="sidebar">
     <div class="brand">~/admin_</div>
     <button data-section="site" class="active">// site settings</button>
+    <button data-section="hero_roles">// hero roles</button>
     <button data-section="stats">// stats</button>
     <button data-section="contacts">// contacts</button>
     <button data-section="skills">// skills</button>
     <button data-section="projects">// projects</button>
     <button data-section="experience">// experience</button>
+    <button data-section="messages">// messages</button>
+    <button data-section="analytics">// analytics</button>
     <div class="spacer"></div>
+    <button id="previewToggle" class="btn btn-sm" style="margin:6px 8px">toggle preview</button>
     <a class="btn btn-sm" href="/" target="_blank" style="text-align:center;text-decoration:none;margin:6px 8px">view site →</a>
     <button id="logoutBtn" class="logout">// logout</button>
   </aside>
   <main class="main" id="main"></main>
+  <aside id="previewPane" class="preview-pane" hidden>
+    <div class="preview-bar">
+      <span>Live preview</span>
+      <button id="reloadPreview" class="btn btn-sm">⟳ reload</button>
+      <button id="closePreview" class="btn btn-sm">×</button>
+    </div>
+    <iframe id="previewFrame" src="/" title="preview"></iframe>
+  </aside>
 </div>
 
 <div id="toast" class="toast"></div>

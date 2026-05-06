@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{ site.get('hero_name', 'Rustem Nuryev') }} — CV</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px;
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
+    color: #111; background: #fff; line-height: 1.5;
+    max-width: 820px; margin: 0 auto;
+  }
+  h1 { font-size: 32px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 28px 0 10px; padding-bottom: 4px;
+       border-bottom: 1px solid #888; letter-spacing: 0.04em;
+       text-transform: uppercase; color: #333; }
+  h3 { font-size: 15px; margin: 12px 0 2px; }
+  .role { color: #555; font-size: 14px; margin-bottom: 6px; }
+  .meta { color: #666; font-size: 13px; margin-bottom: 14px; }
+  ul { margin: 6px 0 14px 18px; padding: 0; }
+  li { margin-bottom: 3px; font-size: 14px; }
+  .contacts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: #444; }
+  .contacts a { color: #0066cc; text-decoration: none; }
+  .skills .group { margin-bottom: 10px; }
+  .skills .label { font-weight: 600; }
+  .tags { color: #444; font-size: 13.5px; }
+  .controls { position: fixed; top: 16px; right: 16px; }
+  .btn { padding: 8px 14px; background: #111; color: #fff; border: 0;
+         border-radius: 4px; cursor: pointer; font-size: 13px; }
+  @media print {
+    body { padding: 20px; }
+    .controls { display: none; }
+    h2 { page-break-after: avoid; }
+    h3 { page-break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="controls"><button class="btn" onclick="window.print()">Save as PDF</button></div>
+
+<h1>{{ site.get('hero_name', 'Rustem Nuryev') }}</h1>
+<div class="role">Backend · Network · DevOps · Security</div>
+<div class="meta">
+  {{ site.get('hero_meta_location', '') }} ·
+  {{ site.get('hero_meta_exp', '') }} of experience ·
+  Stack: {{ site.get('hero_meta_stack', '') }}
+</div>
+<div class="contacts">
+  {% for c in contacts %}
+    <span>{{ c.label }}: {% if c.url %}<a href="{{ c.url }}">{{ c.value }}</a>{% else %}{{ c.value }}{% endif %}</span>
+  {% endfor %}
+</div>
+
+<h2>About</h2>
+<div>{{ site.get('about_p1', '')|safe }}</div>
+<div>{{ site.get('about_p2', '')|safe }}</div>
+
+<h2>Experience</h2>
+{% for e in experience %}
+  <h3>{{ e.role }}</h3>
+  <div class="meta">{{ e.period }} · {{ e.company_meta }}</div>
+  <ul>
+    {% for b in e.bullets %}<li>{{ b.text }}</li>{% endfor %}
+  </ul>
+{% endfor %}
+
+<h2>Skills</h2>
+<div class="skills">
+  {% for c in clusters %}
+    <div class="group">
+      <span class="label">{{ c.title }}:</span>
+      <span class="tags">{{ c.tags|map(attribute='name')|join(' · ') }}</span>
+    </div>
+  {% endfor %}
+</div>
+</body>
+</html>

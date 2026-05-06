@@ -232,6 +232,9 @@
   .project-card .pc-icon { color: var(--fg-mute); transition: color 0.2s, transform 0.2s; }
   .project-card:hover .pc-icon { color: var(--cyan); transform: translate(2px, -2px); }
   .project-card p.pc-desc { color: var(--fg-dim); margin: 0; font-size: 14.5px; }
+  .pc-cover { margin: -22px -22px 4px; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .pc-cover img { width: 100%; height: 160px; object-fit: cover; display: block; transition: transform 0.4s ease; }
+  .project-card:hover .pc-cover img { transform: scale(1.04); }
   .project-card .pc-links { display: flex; gap: 10px; margin-top: auto; padding-top: 6px; }
   .project-card .pc-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-dim); border: 1px solid var(--line); padding: 6px 10px; border-radius: var(--r-sm); transition: color 0.2s, border-color 0.2s, box-shadow 0.2s; }
   .project-card .pc-link:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,240,255,0.3); }
@@ -576,6 +579,7 @@
 
   langToggle.addEventListener('click', () => {
     applyLang(currentLang === 'en' ? 'ru' : 'en');
+    if (window.__rerenderLangAware) window.__rerenderLangAware();
   });
   applyLang(currentLang);
 
@@ -593,22 +597,33 @@
     });
   });
 
-  const roles = ["Backend Developer", "Network Engineer", "DevOps Engineer", "Pentester", "Cybersecurity Specialist"];
   const roleEl = document.getElementById('role');
-  let rIdx = 0, cIdx = 0, deleting = false;
+  let rIdx = 0, cIdx = 0, deleting = false, tickTimer = null;
+  function rolesList() {
+    return (window.__heroRoles && window.__heroRoles.length)
+      ? window.__heroRoles
+      : ["Backend Developer"];
+  }
   function tick() {
-    const word = roles[rIdx];
+    const list = rolesList();
+    if (rIdx >= list.length) rIdx = 0;
+    const word = list[rIdx];
     if (!deleting) {
       cIdx++;
       roleEl.textContent = word.slice(0, cIdx);
-      if (cIdx === word.length) { deleting = true; setTimeout(tick, 1400); return; }
+      if (cIdx === word.length) { deleting = true; tickTimer = setTimeout(tick, 1400); return; }
     } else {
       cIdx--;
       roleEl.textContent = word.slice(0, cIdx);
-      if (cIdx === 0) { deleting = false; rIdx = (rIdx + 1) % roles.length; }
+      if (cIdx === 0) { deleting = false; rIdx = (rIdx + 1) % list.length; }
     }
-    setTimeout(tick, deleting ? 35 : 70);
+    tickTimer = setTimeout(tick, deleting ? 35 : 70);
   }
+  window.__resetTyping = function () {
+    if (tickTimer) clearTimeout(tickTimer);
+    rIdx = 0; cIdx = 0; deleting = false;
+    tick();
+  };
   tick();
 
   window.__revealObserver = new IntersectionObserver((entries) => {
@@ -634,7 +649,7 @@
 
   const form = document.getElementById('contactForm');
   const status = document.getElementById('formStatus');
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = form.querySelector('#cf-name').value.trim();
     const email = form.querySelector('#cf-email').value.trim();
@@ -645,14 +660,25 @@
       status.textContent = '[error] all fields are required.';
       return;
     }
-    const subject = encodeURIComponent(`Portfolio contact — ${name}`);
-    const body = encodeURIComponent(`${msg}\n\n— ${name} <${email}>`);
-    const mailto = (window.__contactEmail || 'hello@yomarakesha.dev');
-    window.location.href = `mailto:${mailto}?subject=${subject}&body=${body}`;
-    status.style.color = 'var(--lime)';
-    status.style.textShadow = 'var(--glow-lime)';
-    status.textContent = '[ok] message handed off to your mail client. ';
-    form.reset();
+    status.style.color = 'var(--fg-dim)';
+    status.style.textShadow = 'none';
+    status.textContent = '[...] sending';
+    try {
+      const r = await fetch('/api/contact-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message: msg }),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      status.style.color = 'var(--lime)';
+      status.style.textShadow = 'var(--glow-lime)';
+      status.textContent = '[ok] message delivered. I\'ll get back to you.';
+      form.reset();
+    } catch (err) {
+      status.style.color = 'var(--purple)';
+      status.style.textShadow = 'var(--glow-purple)';
+      status.textContent = '[error] could not send: ' + err.message;
+    }
   });
 </script>
 </body>
