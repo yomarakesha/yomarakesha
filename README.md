@@ -1,5 +1,7 @@
 # Rustem Nuryev
 
+**English** · [Русский](README.ru.md)
+
 **DevOps Engineer with a strong backend background (Golang / FastAPI)**
 
 I build backends, ship them to Linux servers I run myself, and keep them observable and secure.
@@ -194,7 +196,3 @@ Client code is private. Short summaries:
 | E-shop + CRM | Shop for IT and security hardware, admin CRM with RBAC | FastAPI, SQLite, React | systemd + nginx, GitHub Actions CI |
 | Job board | Server-rendered, works without JavaScript on slow mobile networks | FastAPI, Next.js | Docker Compose |
 | Legal and HR suite | Contract workflow, approvals, HR | Django REST (v1), then NestJS + Prisma + tRPC monorepo (pnpm, Turborepo), React | Docker Compose + nginx |
-
----
-
-<sub>English · Русский по запросу</sub>
