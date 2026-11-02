@@ -1,6 +1,6 @@
 # Rustem Nuryev
 
-**DevOps Engineer with a strong backend background (Python / FastAPI)**
+**DevOps Engineer with a strong backend background (Golang / FastAPI)**
 
 I build backends, ship them to Linux servers I run myself, and keep them observable and secure.
 Field experience with large physical-security deployments: ~1,000 IP cameras, Hikvision access control, Wazuh SIEM across ~500 hosts.
